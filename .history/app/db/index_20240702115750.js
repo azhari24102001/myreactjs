@@ -1,0 +1,11 @@
+const mongoose = require('mongoose');
+const { urlDb } = require('../config');
+
+// (3) connect ke MongoDB menggunakan konfigurasi yang telah kita import
+mongoose.connect(urlDb);
+
+// (4) simpan koneksi dalam constant db
+const db = mongoose.connection;
+
+// (5) export db supaya bisa digunakan oleh file lain yang membutuhkan
+module.exports = db;

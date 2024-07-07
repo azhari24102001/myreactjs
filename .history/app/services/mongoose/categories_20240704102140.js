@@ -1,0 +1,27 @@
+const Categories = require('../../api/v1/categories/model');
+const { BadRequestError, NotFoundError } = require('../../errors/')
+
+const getAllCategories = async () => {
+    const result = await Categories.find();
+
+    return result;
+}
+
+const createAllCategories = async () => {
+    const { name } = req.body;
+
+    const result = await Categories.create({ name });
+
+    if (result) throw new BadRequestError('category name duplicate');
+
+    return result;
+}
+
+const getOneCategories = async (req) => {
+    const { id } = req.params;
+    const result = await Categories.findOne({ _id: id });
+
+    if (!result) throw new NotFoundError(`Tidak ada Kategori dengan id : ${id}`);
+}
+
+module.exports = { getAllCategories, createAllCategories, getOneCategories} ;
